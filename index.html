@@ -6,11 +6,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        /* https://www.w3schools.com/cssref/css_selectors.asp */
+        /* https://www.w3schools.com/cssref/ */
+
+        body>h1 {
+            background-color: rgb(177, 136, 82);
+        }
+
+        h1 {
+            background-color: red;
+            color: white;
+            cursor: wait;
+            font: 25px courier, monospace;
+        }
+
+
+
+        #footer {
+            background-color: #f5f5f5;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .para {
+            /* font-size: 16px; */
+            font: 16px courier, monospace;
+            font-weight: bold;
+            background-color: #f5f5f5;
+        }
+
+        .firstItem {
+            /* margin: 10px; */
+            margin-bottom: 10px;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <h1> I live in Karachi </h1>
+    <h1 id="firstHeading"> I live in Karachi </h1>
 
     <i> I am software developer </i>
 
@@ -19,9 +56,9 @@
     <b> this is bold text </b>
 
     <u>this is underline text</u>
-    
+
     <ul>
-        <li>point 1</li>
+        <li class="firstItem">point 1</li>
         <li>point 2</li>
         <li>point 3</li>
         <li>point 4</li>
@@ -30,28 +67,31 @@
 
     <table>
         <tr>
-          <th>Month</th>
-          <th>Savings</th>
+            <th>Month</th>
+            <th>Savings</th>
         </tr>
         <tr>
-          <td>January</td>
-          <td>$100</td>
+            <td>January</td>
+            <td>$100</td>
         </tr>
         <tr>
-          <td>February</td>
-          <td>$80</td>
+            <td>February</td>
+            <td>$80</td>
         </tr>
-      </table>
+    </table>
 
     <hr>
 
-    <p>
-        Probably the <br> most effective <br> way to achieve paragraph unity is to express the central idea of the paragraph in a
+    <h1>Another Heading</h1>
+
+    <p class="para">
+        Probably the <br> most effective <br> way to achieve paragraph unity is to express the central idea of the
+        paragraph in a
         topic sentence.
     </p>
 
 
-    <p>
+    <p class="para">
         Topic sentences are similar to mini thesis statements. Like a thesis statement, a topic sentence has a specific
         main point. Whereas the thesis is the main point of the essay, the topic sentence is the main point of the
         paragraph. Like the thesis statement, a topic sentence has a unifying function. But a thesis statement or topic
@@ -66,6 +106,9 @@
     <h3> Heading 3 </h3>
 
     <button type="button">Click Me!</button>
+
+
+    <p id="footer"> All Rights Reserved (c) 2022</p>
 
 
 
