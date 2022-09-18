@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Array data type</h1>
+
+    <script>
+        // let friends = [2, "car", 3, false]; // 22byte 1bit
+
+        // console.log(friends[0]);
+        // console.log(friends[1]);
+        // console.log(friends[2]);
+        // console.log(friends[3]);
+
+        // friends[0] = 0
+        // friends[1] = 0
+        // friends[2] = 0
+        // friends[3] = 0
+
+        // console.log(friends[0]);
+        // console.log(friends[1]);
+        // console.log(friends[2]);
+        // console.log(friends[3]);
+
+        // let num1 = 5;
+        // let copy1 = num1;
+        // copy1 = 10;
+        // console.log(copy1);
+        // console.log(num1);
+
+
+
+        let arr1 = [2, 3, 1, 2];
+        let copy = [...arr1, "EOF"]; // cloning
+
+        // https://stackoverflow.com/questions/3978492/fastest-way-to-duplicate-an-array-in-javascript-slice-vs-for-loop
+
+        copy[0] = 5
+
+        console.log(copy);
+        console.log(arr1);
+
+
+
+    </script>
+
+
+</body>
+
+</html>
