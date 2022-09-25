@@ -9,14 +9,49 @@
 </head>
 
 <body>
+
     <h1>For Loop</h1>
 
     <script>
 
-        for (let i = 0; i < 10; i++) {
-            console.log(`5 x ${i + 1} = ${5 * (i + 1)}`);
-        }
+        // for (let i = 0; i < 10; i++) {
+        //     console.log(`5 x ${i + 1} = ${5 * (i + 1)}`);
+        // }
 
+        //////////////////////////
+
+        // let i = 0; // on wheeling
+        // for (; ;) {
+        //     if (i > 3) {
+        //         break;
+        //     }
+        //     console.log(i);
+        //     i++;
+        // }
+
+        ////////////////////////
+
+        let temps = [28, 27, 31, 29, 32, 27]; // 6
+
+        // for (let i = 0; i < temp.length; i++) {
+        //     temp[i] = (temp[i] * 1.8) + 32;
+        //     console.log(temp[i]);
+        // }
+
+        let fahrenheit = temps.map((eachItem, i) => {
+
+            console.log(temps[i]);
+            return (eachItem * 1.8) + 32;
+        })
+
+        console.log("temps: ", temps);
+        console.log("fahrenheit: ", fahrenheit);
+
+
+        // max
+        // min
+        // average
+        // 26 - how many above/below
     </script>
 </body>
 
