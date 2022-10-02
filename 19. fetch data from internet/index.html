@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1> Weather App: </h1>
+
+    <form onsubmit="getWeather(); return false">
+
+        <input type="text" id="cityName">
+        <button type="submit">Get Weather</button>
+
+    </form>
+    <div id="result"></div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+
+
+        // let std = [0, 2, 3, 2, 3, 4, "sdf", true]
+
+        // let std = {
+        //     firstName: "Malik",
+        //     lastName: "Inzamam",
+        //     subject: "Science",
+        //     isMarried: true,
+        //     age: 30,
+        //     hobbies: ["singing", "reading", "watching"]
+        // }
+
+        // // console.log(    std["firstName"]    );
+
+        // console.log(std.firstName);
+        // console.log(std.lastName);
+        // console.log(std.age);
+        // console.log(std.height);
+
+        // std.firstName = "John";
+        // std.height = 6;
+
+        // console.log(std.firstName);
+        // console.log(std["firstName"]);
+        // console.log(std.height);
+
+
+
+        let getWeather = () => {
+
+            let cityName = document.querySelector("#cityName").value
+
+            axios.get(`https://api.openweathermap.org/data/2.5/weather?units=metric&appid=e0f99c494c2ce394a18cc2fd3f100543&q=${cityName}`)
+                .then(function (response) {
+                    // handle success
+                    console.log("response is success");
+                    console.log(response.data);
+
+                    document.querySelector("#result").innerHTML =
+                        `<h1>${response.data.name}</h1>
+                         <h3> ${response.data.main.temp}°C </h3>`
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+
+        }
+
+
+    </script>
+</body>
+
+</html>
