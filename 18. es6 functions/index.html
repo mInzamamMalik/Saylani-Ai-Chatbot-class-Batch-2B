@@ -14,9 +14,67 @@
 <body>
     <h1>ES6 Functions</h1>
 
+    <h1>Log2: </h1>
+    <form onsubmit="logTwo(); return false">
+        <input id="input" type="number">
+        <button type="submit">Log 2</button>
+    </form>
+    <div id="result"></div>
+
+
+    <h1>Derivative: </h1>
+    <form onsubmit="derivative(); return false">
+        <input id="inputDerivative1" type="text" placeholder="2x^2 + 3x + 4">
+        <input id="inputDerivative2" type="text" placeholder="x">
+        <button type="submit">Calculate</button>
+    </form>
+    <div id="resultDerivative"></div>
+
+    <h1>Mean: </h1>
+    <form onsubmit="mean(); return false" id="meanForm">
+        <input id="inputMean" type="text" placeholder="23">
+        <button type="submit">Add</button>
+    </form>
+    <div id="resultMean"></div>
+
     <script>
 
-        console.log("log: ", math.log(10000, 2))
+        let logTwo = () => {
+            let input = +document.querySelector("#input").value;
+
+            let result = math.log(input, 2);
+
+            document.querySelector("#result").innerHTML = result;
+        }
+        let derivative = () => {
+            let input1 = document.querySelector("#inputDerivative1").value;
+            let input2 = document.querySelector("#inputDerivative2").value;
+
+            let result = math.derivative(input1, input2);
+
+            document.querySelector("#resultDerivative").innerHTML = result;
+        }
+
+        let meanInputArray = [];
+        let mean = () => {
+            let input1 = document.querySelector("#inputMean").value;
+
+            meanInputArray.push(input1);
+
+            let result = math.mean(meanInputArray);
+
+            document.querySelector("#resultMean").innerHTML = "values: " + meanInputArray;
+            document.querySelector("#resultMean").innerHTML += "<br />";
+            document.querySelector("#resultMean").innerHTML += "result: " + result;
+
+            document.querySelector("#meanForm").reset();
+        }
+
+
+
+
+
+        console.log("eval: ", math.evaluate("12.7 cm to inch").toString())
 
         // function doSum(num1, num2) {
 
