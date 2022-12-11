@@ -44,18 +44,158 @@ app.post("/product", () => {
         return;
     }
 
-
     productModel.create({
         name: body.name,
         price: body.price,
         category: body.category,
         description: body.description,
-    })
+    },
+        (err, saved) => {
+            if (!err) {
+                console.log(saved);
 
-
-
+                res.send({
+                    message: "your product is saved"
+                })
+            } else {
+                res.status(500).send({
+                    message: "server error"
+                })
+            }
+        })
 
 })
+
+app.get('/products', (req, res) => {
+
+    productModel.find({}, (err, data) => {
+        if (!err) {
+            res.send({
+                message: "here is you todo list",
+                data: data
+            })
+        } else {
+            res.status(500).send({
+                message: "server error"
+            })
+        }
+    });
+})
+
+app.get('/product/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    productModel.findOne({ _id: id }, (err, data) => {
+        if (!err) {
+
+            if (data) {
+                res.send({
+                    message: "here is you product",
+                    data: data
+                })
+            } else {
+                res.status(404).send({
+                    message: "product not found",
+                })
+            }
+
+        } else {
+            res.status(500).send({
+                message: "server error"
+            })
+        }
+    });
+})
+
+app.put('/product/:id', async (req, res) => {
+
+    const id = req.params.id;
+    const body = req.body;
+
+    if (
+        !body.name ||
+        !body.price ||
+        !body.category ||
+        !body.description
+    ) {
+        res.status(400).send(` required parameter missing. example request body:
+        {
+            "name": "value",
+            "price": "value",
+            "category": "value",
+            "description": "value"
+        }`)
+        return;
+    }
+
+    try {
+        let data = await productModel.findByIdAndUpdate(id,
+            {
+                name: body.text,
+                price: body.price,
+                category: body.category,
+                description: body.description
+            },
+            { new: true }
+        ).exec();
+
+        console.log('updated: ', data);
+
+        res.send({
+            message: "todo is updated successfully",
+            data: data
+        })
+
+    } catch (error) {
+        res.status(500).send({
+            message: "server error"
+        })
+    }
+})
+
+app.delete('/products', (req, res) => {
+
+    productModel.deleteMany({}, (err, data) => {
+        if (!err) {
+            res.send({
+                message: "All Products has been deleted successfully",
+            })
+        } else {
+            res.status(500).send({
+                message: "server error"
+            })
+        }
+    });
+})
+
+app.delete('/product/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    todoModel.deleteOne({ _id: id }, (err, deletedData) => {
+        console.log("deleted: ", deletedData);
+        if (!err) {
+
+            if (deletedData.deletedCount !== 0) {
+                res.send({
+                    message: "Product has been deleted successfully",
+                })
+            } else {
+                res.send({
+                    message: "No Product found with this id: " + id,
+                })
+            }
+
+
+        } else {
+            res.status(500).send({
+                message: "server error"
+            })
+        }
+    });
+})
+
 
 
 
