@@ -25,7 +25,7 @@ app.use(express.json())
 const port = process.env.PORT || 5001;
 
 
-app.post("/product", () => {
+app.post("/product", (req, res) => {
 
     const body = req.body;
     if (
@@ -173,7 +173,7 @@ app.delete('/product/:id', (req, res) => {
 
     const id = req.params.id;
 
-    todoModel.deleteOne({ _id: id }, (err, deletedData) => {
+    productModel.deleteOne({ _id: id }, (err, deletedData) => {
         console.log("deleted: ", deletedData);
         if (!err) {
 

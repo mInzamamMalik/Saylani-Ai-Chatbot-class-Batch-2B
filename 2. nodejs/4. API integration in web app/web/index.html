@@ -6,18 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .productList > div{
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 15px;
+        }
+    </style>
 </head>
 
-<body>
+<body onload="getAllProducts()">
     <h1> API integration: </h1>
 
-    <form onsubmit="getWeather(); return false">
+    <form onsubmit="addProduct(); return false">
 
-        <input type="text" id="cityName">
-        <button type="submit">Get Weather</button>
+        Name: <input type="text" id="name">
+        <br>
+        Price: <input type="number" id="price">
+        <br>
+        Category: <input type="text" id="cat">
+        <br>
+        Description: <input type="text" id="desc">
+        <br>
+
+        <button type="submit">Add Product</button>
 
     </form>
     <div id="result"></div>
+
+    <div id="productList" class="productList"></div>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./app.js"></script>
