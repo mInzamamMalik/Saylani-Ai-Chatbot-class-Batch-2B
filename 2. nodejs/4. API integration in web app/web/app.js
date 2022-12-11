@@ -2,10 +2,10 @@
 const url = window.location.href;
 let baseUrl = "";
 
-if (url.split(":")[0] === 'http') {
-    baseUrl = 'http://localhost:5001';
-} else {
+if (url.split(":")[0] === 'https') {
     baseUrl = 'https://ill-pink-gorilla-cuff.cyclic.app';
+} else {
+    baseUrl = 'http://localhost:5001';
 }
 
 
