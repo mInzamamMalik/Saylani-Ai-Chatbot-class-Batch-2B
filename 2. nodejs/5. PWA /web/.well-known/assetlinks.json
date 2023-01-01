@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "app.cyclic.pwaexample.twa",
+                     "sha256_cert_fingerprints": ["4F:AE:0E:85:2F:07:4A:A2:67:C4:EE:65:8E:82:23:89:9D:73:01:84:2B:CC:D0:BC:5F:00:5F:35:9C:7C:A3:E9"] }
+      }
+]

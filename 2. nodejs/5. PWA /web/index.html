@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="./pwa/manifest.json" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./fav/favicon-16x16.png">
+    <link rel="manifest" href="./fav/site.webmanifest">
+    <link rel="mask-icon" href="./fav/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+    <title>Document</title>
+    <style>
+        .productList>div {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body onload="getAllProducts()">
+    
+    <!-- <button id="install">Install pwa</button> -->
+    
+    <h1> API integration: </h1>
+
+    <form onsubmit="addProduct(); return false">
+
+        Name: <input type="text" id="name">
+        <br>
+        Price: <input type="number" id="price">
+        <br>
+        Category: <input type="text" id="cat">
+        <br>
+        Description: <input type="text" id="desc">
+        <br>
+
+        <button type="submit">Add Product</button>
+
+    </form>
+    <div id="result"></div>
+
+    <div id="productList" class="productList"></div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./app.js"></script>
+
+    <script>
+
+        console.log("navigator.serviceWorker: ", navigator.serviceWorker);
+
+        if (typeof navigator.serviceWorker !== 'undefined') {
+
+            navigator.serviceWorker.register('sw.js').then((registration) => {
+                console.log('Service worker registration succeeded:', registration);
+            }, /*catch*/(error) => {
+                console.error(`Service worker registration failed: ${error}`);
+            });
+        }
+
+
+        // let deferredPrompt;
+        // window.addEventListener('beforeinstallprompt', function (e) {
+
+        //     // Prevent the mini-infobar from appearing on mobile
+        //     e.preventDefault();
+
+        //     // Stash the event so it can be triggered later.
+        //     deferredPrompt = e;
+        // });
+        // var buttonInstall = document.getElementById('install');
+
+        // buttonInstall.addEventListener('click', function (e) {
+        //     // Show the install prompt
+        //     deferredPrompt.prompt();
+        // });
+
+
+
+    </script>
+</body>
+
+</html>
