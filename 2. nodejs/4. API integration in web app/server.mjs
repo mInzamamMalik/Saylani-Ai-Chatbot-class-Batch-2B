@@ -2,8 +2,7 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors'
 import mongoose from 'mongoose';
-
-
+import { exec } from 'child_process';
 
 
 let productSchema = new mongoose.Schema({
@@ -66,20 +65,23 @@ app.post("/product", (req, res) => {
 
 })
 
-app.get('/products', (req, res) => {
+app.get('/products', async (req, res) => {
+    try {
+        const data = await productModel.find({})
+            // .select({description: 0, name: 0}) // projection
+            .sort({ _id: -1 })
+            .exec();
 
-    productModel.find({}, (err, data) => {
-        if (!err) {
-            res.send({
-                message: "here is you todo list",
-                data: data
-            })
-        } else {
-            res.status(500).send({
-                message: "server error"
-            })
-        }
-    });
+        res.send({
+            message: "here is you todo list",
+            data: data
+        })
+    } catch (e) {
+        console.log(e);
+        res.status(500).send({
+            message: "server error"
+        })
+    }
 })
 
 app.get('/product/:id', (req, res) => {

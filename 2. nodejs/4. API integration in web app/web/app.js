@@ -3,7 +3,7 @@ const url = window.location.href;
 let baseUrl = "";
 
 if (url.split(":")[0] === 'https') {
-    baseUrl = 'https://ill-pink-gorilla-cuff.cyclic.app';
+    baseUrl = '';
 } else {
     baseUrl = 'http://localhost:5001';
 }
