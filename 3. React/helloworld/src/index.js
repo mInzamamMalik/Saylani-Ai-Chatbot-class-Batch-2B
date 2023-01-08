@@ -2,21 +2,42 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
-function Hi() {
-  return (
-    <div>
-      <strong> Hello Malik! </strong>
-      <div className="red"> this is some more html</div>
-      <img
-        width="200px"
-        src="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"
-        alt=""
-      />
+const Post = ({ name, date, text, imageUrl }) => (
+  <div className="post">
+    <h2>{name}</h2>
+    <span>{date}</span>
+    <br />
+    <p>{text}</p>
+    <img
+      width="300px"
+      src={imageUrl}
+      alt=""
+    />
+    <br />
+    <button>Like</button>
+    <button>Comment</button>
+    <button>Share</button>
+  </div>
+)
 
-      <br />
-      {5 + 2 + 2}
-    </div>
-  );
-}
+ReactDOM.render(<div className="parent">
+  <Post
+    name="John"
+    date="1 january 2022"
+    imageUrl="https://blogs.windows.com/wp-content/uploads/prod/2020/08/windows-logo-social.png"
+    text="Windows is a group of several proprietary graphical operating system families developed and marketed by Microsoft. Each family caters to a certain sector of the computing industry. For example, Windows NT for consumers, Windows Server for servers, and Windows IoT for embedded systems. Defunct Windows families include Windows 9x, Windows Mobile, and Windows Phone."
+  />
+  <Post
+    name="Alice"
+    date="1 january 2022"
+    imageUrl="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"
+    text="The first version of Windows was released on November 20, 1985, as a graphical operating system shell for MS-DOS in response to the growing interest in graphical user interfaces (GUIs).[7]"
+  />
+  <Post
+    name="Bob"
+    date="1 january 2022"
+    text="The first version of Windows was released on November 20, 1985, as a graphical operating system shell for MS-DOS in response to the growing interest in graphical user interfaces (GUIs).[7]"
+    imageUrl="https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"
 
-ReactDOM.render(<Hi />, document.querySelector("#root"));
+  />
+</div>, document.querySelector("#root"));
