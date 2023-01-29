@@ -2,8 +2,6 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors'
 import mongoose from 'mongoose';
-import { exec } from 'child_process';
-
 
 let productSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -14,6 +12,13 @@ let productSchema = new mongoose.Schema({
 });
 const productModel = mongoose.model('products', productSchema);
 
+let messageSchema = new mongoose.Schema({
+    query: { type: String, required: true },
+    from: String,
+    createdOn: { type: Date, default: Date.now }
+});
+const messageModel = mongoose.model('messages', messageSchema);
+
 
 
 
@@ -22,6 +27,42 @@ app.use(cors())
 app.use(express.json())
 
 const port = process.env.PORT || 5001;
+
+
+app.post("/message", async (req, res) => {
+    try {
+
+        const body = req.body;
+        if (!body.query) {
+            res.status(400).send(` required parameter missing. example request body:
+        {
+            "query": "Hi",
+        }`)
+            return;
+        }
+
+        await messageModel
+            .create({
+                query: body.query,
+                from: "user"
+            })
+            
+
+        // TODO: send query to dialogflow and get chatbot response
+
+        res.send({
+            message: {
+                text: "this is Hello from Chatbot"
+            }
+        })
+
+    } catch (e) {
+        console.log(e);
+        res.status(500).send({
+            message: "server error"
+        })
+    }
+})
 
 
 app.post("/product", (req, res) => {
