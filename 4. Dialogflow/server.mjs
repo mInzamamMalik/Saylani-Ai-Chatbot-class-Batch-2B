@@ -67,7 +67,7 @@ app.get("/ping", (req, res) => {
 // [{
 //     orderName: "malik",
 //     pizzaSize: "large",
-//     pizzaFlavours: "fajita",
+//     pizzaFlavour: "fajita",
 //     qty: 2,
 //     status: "inProgress"
 
@@ -75,7 +75,7 @@ app.get("/ping", (req, res) => {
 // {
 //     orderName: "John",
 //     pizzaSize: "small",
-//     pizzaFlavours: "chilli",
+//     pizzaFlavour: "chilli",
 //     qty: 1,
 //     status: "delivered"
 // }]
@@ -139,16 +139,79 @@ app.post("/webhook", async (req, res) => {
             case 'newOrder': {
 
                 console.log("collected params: ", params);
+                console.log("collected params: ", params.person);
 
-                let responseText = `you said ${params.qty} ${params.pizzaSize} ${params.pizzaFlavours} pizza, your pizza is on the way, this reply came from webhook server.`
+                const newOrder = new orderModel({
+                    orderName: params.person.name,
+                    pizzaSize: params.pizzaSize,
+                    pizzaFlavour: params.pizzaFlavour,
+                    qty: params.qty
+                });
+                const savedOrder = await newOrder.save();
+                console.log(`New order added:`, savedOrder);
+
+
+                let responseText = `you said ${params.qty} ${params.pizzaSize} ${params.pizzaFlavour} pizza, your pizza is on the way.`
 
                 res.send({
                     "fulfillmentMessages": [
                         {
                             "text": {
                                 "text": [
-                                    responseText,
-                                    "this is alternate response from webhook server"
+                                    responseText
+                                ]
+                            }
+                        }
+                    ]
+                })
+
+                break;
+            }
+            case 'checkOrderStatus': {
+
+                let responseText = '';
+
+                const recentOrders = await orderModel.find({})
+                    .sort({ createdOn: -1 })
+                    .limit(15);
+
+                let latestPendingOrders = []
+                for (let i = 0; i < recentOrders.length; i++) {
+                    if (recentOrders[i].status === 'pending') {
+                        latestPendingOrders.push(recentOrders[i])
+                    } else {
+                        break
+                    }
+                }
+
+                if (latestPendingOrders.length === 0) {
+
+                    responseText =
+                        `${recentOrders[0].orderName}, your order for ${recentOrders[0].qty} ${recentOrders[0].pizzaSize} ${recentOrders[0].pizzaFlavour} pizza is ${recentOrders[0].status} ${moment(recentOrders[0].createdOn).fromNow()}`
+
+                } else {
+
+                    responseText += `${latestPendingOrders[0].orderName}, you have ${latestPendingOrders.length} pending ${latestPendingOrders.length > 1 ? "orders." : "order"}`
+
+                    latestPendingOrders.map((eachOrder, i) => {
+                        if (latestPendingOrders.length > 1) {
+                            responseText += ` order number ${i + 1},`
+                        } else {
+                            responseText += ` for`
+                        }
+
+                        responseText += ` ${eachOrder.qty} ${eachOrder.pizzaSize} ${eachOrder.pizzaFlavour} pizza,`
+                    })
+
+                    responseText += ` please be patient your order will be delivered soon.`
+                }
+
+                res.send({
+                    "fulfillmentMessages": [
+                        {
+                            "text": {
+                                "text": [
+                                    responseText
                                 ]
                             }
                         }
@@ -174,9 +237,18 @@ app.post("/webhook", async (req, res) => {
 
 
     } catch (e) {
-        console.log(e);
-        res.status(500).send({
-            message: "server error"
+        console.error("Error adding order:", e);
+
+        res.send({
+            "fulfillmentMessages": [
+                {
+                    "text": {
+                        "text": [
+                            "something is wrong in server, please try again"
+                        ]
+                    }
+                }
+            ]
         })
     }
 })
@@ -192,16 +264,15 @@ app.listen(PORT, () => {
 
 
 
-
-
-let productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    price: Number,
-    category: String,
-    description: String,
+let orderSchema = new mongoose.Schema({
+    orderName: { type: String, required: true },
+    pizzaSize: { type: String, required: true },
+    pizzaFlavour: { type: String, required: true },
+    qty: { type: Number, required: true },
+    status: { type: String, default: "pending" }, // canceled, inProgress delivered
     createdOn: { type: Date, default: Date.now }
 });
-const productModel = mongoose.model('products', productSchema);
+const orderModel = mongoose.model('orders', orderSchema);
 
 
 
