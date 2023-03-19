@@ -1,0 +1,37 @@
+.red {
+    color: red;
+  }
+  
+  .parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .post {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+    background-color: rgb(216, 226, 253);
+    max-width: 600px;
+  }
+  
+  .post .profilePicture {
+    border-radius: 50%;
+  }
+  
+  .post .top {
+    display: flex;
+  }
+  
+  .post>.top>.right {
+  
+    margin-left: 20px;
+  
+  }
+  
+  .dark {
+    background-color: #202124;
+    color: #D5D7DA
+  }

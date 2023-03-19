@@ -1,0 +1,27 @@
+.messageWindow {
+    height: 80vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+.messageBallon {
+    padding: 10px;
+    margin: 4px;
+}
+
+.leftBallon {
+    background-color: rgb(172, 172, 172);
+    color: blue;
+    align-self: flex-start;
+    border-radius: 20px 20px 20px 0px;
+}
+
+.rightBallon {
+    background-color: blue;
+    color: white;
+    align-self: flex-end;
+    border-radius: 20px 20px 0px 20px;
+
+
+}

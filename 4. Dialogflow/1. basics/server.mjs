@@ -151,7 +151,7 @@ app.post("/webhook", async (req, res) => {
                 console.log(`New order added:`, savedOrder);
 
 
-                let responseText = `you said ${params.qty} ${params.pizzaSize} ${params.pizzaFlavour} pizza, your pizza is on the way.`
+                let responseText = `you said ${params.qty} ${params.pizzaSize} ${params.pizzaFlavour} pizza, your pizza is on the way. would you like to have cold drink?`
 
                 res.send({
                     "fulfillmentMessages": [
@@ -162,8 +162,18 @@ app.post("/webhook", async (req, res) => {
                                 ]
                             }
                         }
+                    ],
+                    "outputContexts": [
+                        {
+                            "name": `${req.body.session}/contexts/coolDrinkAsk`,
+                            "lifespanCount": 2,
+                            "parameters": {
+                                "param-name": "param-value"
+                            }
+                        }
                     ]
                 })
+                console.log("session: ", `${req.body.session}/contexts/coolDrinkAsk`);
 
                 break;
             }
